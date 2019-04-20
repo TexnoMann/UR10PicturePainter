@@ -23,7 +23,7 @@ int main(int argc, char const* argv[]){
   ImageLayers il = parser.getLayers();
 
   Mat sum;
-  for (int i =0; i<il.size();i++){
+  for (unsigned int i =0; i<il.size();i++){
     imshow( "Test image", il[i]);
     std::string message = "[LAYER_PARSER] Show layer: " + std::to_string(i);;
     spdlog::info(message);

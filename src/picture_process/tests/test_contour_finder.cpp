@@ -32,6 +32,9 @@ int main(int argc, char const* argv[]){
   cf.generateContours(il);
   cf.getImageFromContours(image_contours);
   spdlog::info("[CONTOUR FINDER] Image for contours");
+  LayersPaths l;
+  cf.convertToPaths(l);
+  spdlog::info("[CONTOUR FINDER] ConvertToPoints");
   imshow( "Test image", image_contours );
   waitKey(0);
   spdlog::info("exit");

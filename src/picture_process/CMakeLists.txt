@@ -15,7 +15,7 @@ add_library(picture_process SHARED
   contour_finder.cpp
   )
 
-target_link_libraries(picture_process ${OpenCV_LIBS} spdlog)
+target_link_libraries(picture_process ${OpenCV_LIBS} spdlog Eigen3::Eigen)
 
 ADD_EXECUTABLE(test_filters tests/test_filters.cpp)
 target_link_libraries(test_filters picture_process)
