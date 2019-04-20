@@ -11,4 +11,4 @@ add_library(kinematic_solver SHARED
   ur10_kinematic.cpp
   )
 
-#target_link_libraries(kinematic_solver ${OpenCV_LIBS} spdlog)
+#target_link_libraries(kinematic_solver ${OpenCV_LIBS} spdlog Eigen3::Eigen)
