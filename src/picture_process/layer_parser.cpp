@@ -8,10 +8,10 @@ LayerParser::LayerParser(int depthLayers, int thresholdMin, int thresholdMax){
   ImageLayers _layers(depthLayers);
 }
 
-void LayerParser::parseLayers(cv::Mat src_image, int ksize, int delta, int scale, int ddepth){
+void LayerParser::parseLayers(cv::Mat src_image, int ksize, double delta, double scale, int ddepth){
   if (ksize % 2 ==0){
     spdlog::error("[SOBEL_F] Gived invalid kernel size for filtering!");
-  	throw;
+    throw;
   }
   _layers.clear();
   cv::Mat out_image;
@@ -22,13 +22,13 @@ void LayerParser::parseLayers(cv::Mat src_image, int ksize, int delta, int scale
     threshold(out_image, layer, intesive, 255, 3);
     _ft.gusianBlurFilt(out_image,1);
     try{
-     cv::subtract(out_image, layer, out_image);
-     _layers.emplace_back(layer);
-   }catch(std::exception ex){
-     spdlog::error("[CONTRAST_F] Gived invalid image for subtract.");
- 		 throw;
+      cv::subtract(out_image, layer, out_image);
+      _layers.emplace_back(layer);
+    }catch(std::exception ex){
+      spdlog::error("[CONTRAST_F] Gived invalid image for subtract.");
+      throw;
    }
-  }
+ }
 }
 
 ImageLayers LayerParser::getLayers(){

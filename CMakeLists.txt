@@ -18,4 +18,5 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 add_subdirectory(src/picture_process)
 add_subdirectory(src/kinematic_solver)
+add_subdirectory(src/trj_planer)
 add_subdirectory(src/util/spdlog)

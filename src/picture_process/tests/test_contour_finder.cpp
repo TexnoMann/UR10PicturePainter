@@ -27,7 +27,7 @@ int main(int argc, char const* argv[]){
 
   Mat image_contours =Mat::zeros( image.size(), CV_8UC3 );
 
-  parser.parseLayers(image, 3, 2, 1, CV_16S);
+  parser.parseLayers(image, 3, 2.5, 1, CV_16S);
   ImageLayers il = parser.getLayers();
   cf.generateContours(il);
   cf.getImageFromContours(image_contours);

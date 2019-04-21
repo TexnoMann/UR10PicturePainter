@@ -8,7 +8,7 @@ using ImageLayers = std::vector<cv::Mat>;
 class LayerParser{
 public:
   LayerParser(int depthLayers, int thresholdMin, int thresholdMax);
-  void parseLayers(cv::Mat src_image, int ksize, int delta, int scale, int ddepth);
+  void parseLayers(cv::Mat src_image, int ksize, double delta, double scale, int ddepth);
   ImageLayers getLayers();
   void parseCountours();
 private:
