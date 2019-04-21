@@ -17,6 +17,6 @@ find_package(Boost 1.54.0 COMPONENTS serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 add_subdirectory(src/picture_process)
-add_subdirectory(src/kinematic_solver)
+add_subdirectory(src/property_manager)
 add_subdirectory(src/trj_planer)
 add_subdirectory(src/util/spdlog)
