@@ -16,7 +16,10 @@ include_directories(${EIGEN3_INCLUDE_DIRS})
 find_package(Boost 1.54.0 COMPONENTS serialization REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
+include_directories(util/fast-cpp-csv-parser)
+include_directories(util/CSVWriter/include)
+
 add_subdirectory(src/picture_process)
-add_subdirectory(src/kinematic_solver)
 add_subdirectory(src/trj_planer)
 add_subdirectory(src/util/spdlog)
+add_subdirectory(src/tests)
