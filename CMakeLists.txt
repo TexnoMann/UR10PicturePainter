@@ -20,6 +20,10 @@ include_directories(util/fast-cpp-csv-parser)
 include_directories(util/CSVWriter/include)
 
 add_subdirectory(src/picture_process)
+<<<<<<< HEAD
+=======
+add_subdirectory(src/property_manager)
+>>>>>>> e347a8e2ff14d7f4cb9af10ef971796d337e3587
 add_subdirectory(src/trj_planer)
 add_subdirectory(src/util/spdlog)
 add_subdirectory(src/tests)
