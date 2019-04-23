@@ -1,3 +1,9 @@
 [submodule "src/util/spdlog"]
 	path = src/util/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "src/util/CSVWriter"]
+	path = src/util/CSVWriter
+	url = https://github.com/al-eax/CSVWriter.git
+[submodule "src/util/fast-cpp-csv-parser"]
+	path = src/util/fast-cpp-csv-parser
+	url = https://github.com/ben-strasser/fast-cpp-csv-parser.git

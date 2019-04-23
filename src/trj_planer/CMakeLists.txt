@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-PROJECT(trj_planer CXX)
+project(trj_planer CXX)
 
 add_library(trj_planer SHARED
   trj_planer.h
