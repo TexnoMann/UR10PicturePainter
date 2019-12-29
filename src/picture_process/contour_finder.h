@@ -3,12 +3,14 @@
 #include "layer_parser.h"
 #include <Eigen/Dense>
 
+#define MIN_AREA_SIZE 10
 
 using Contours =std::vector<std::vector<cv::Point>>;
 using LayersContours = std::vector<Contours>;
 
-using Paths = std::vector<std::vector<Eigen::Vector2d>>;
+using Paths = std::vector<std::vector<Eigen::VectorXd>>;
 using LayersPaths = std::vector<Paths>;
+using LayersHi =std::vector<std::vector<cv::Vec4i>>;
 
 class ContoursFinder{
   public:
@@ -17,8 +19,9 @@ class ContoursFinder{
     void getImageFromContours(cv::Mat & image);
     void generateContours(ImageLayers &layers);
     void convertToPaths(LayersPaths & out_paths);
+    void getLayersContours(LayersContours & l, LayersHi & hi);
 
   private:
     LayersContours _layers_contours;
-    std::vector<std::vector<cv::Vec4i>> _hierarchy;
+    LayersHi _hierarchy;
 };

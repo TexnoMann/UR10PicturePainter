@@ -13,6 +13,8 @@ add_library(picture_process SHARED
   layer_parser.h
   contour_finder.h
   contour_finder.cpp
+#  edge_cutter.h
+#  edge_cutter.cpp
   )
 
 target_link_libraries(picture_process ${OpenCV_LIBS} spdlog Eigen3::Eigen)
@@ -28,3 +30,7 @@ ADD_TEST(NAME test_layer_parser COMMAND test_layer_parser)
 ADD_EXECUTABLE(test_contours_finder tests/test_contour_finder.cpp)
 target_link_libraries(test_contours_finder picture_process)
 ADD_TEST(NAME test_contours_finder COMMAND test_contours_finder)
+
+ADD_EXECUTABLE(test_paint_gen tests/test_paint_gen.cpp)
+target_link_libraries(test_paint_gen picture_process trj_planer)
+ADD_TEST(NAME test_paint_gen COMMAND test_paint_gen)

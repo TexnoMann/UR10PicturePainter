@@ -12,15 +12,23 @@ TrjPlaner::TrjPlaner(double timeDelay, double maxLinDistance, double maxAccel, d
 
   // Quaternion read from file
   ptree canvasInfo = prop::tree().get_child("canvas_info");
-  std::vector<double> qdata = prop::getVector<double>(canvasInfo, "quaternion");
-  std::vector<double> tdata = prop::getVector<double>(canvasInfo, "translation");
+  std::vector<double> transform_data = prop::getVector<double>(canvasInfo, "transform_matrix");
+  std::vector<double> plane_size = prop::getVector<double>(canvasInfo, "plane_size");
+  _picture_size = prop::getVector<double>(canvasInfo, "picture_size");
+  std::vector<double> tool_size = prop::getVector<double>(canvasInfo, "tool_size");
 
-  _scaleFactor = Eigen::Matrix3d::Identity();
+  _scaleFactor = Eigen::MatrixXd::Identity(4,4);
+  _scaleFactor(0,0) = plane_size[0]/_picture_size[0];
+  _scaleFactor(1,1) = plane_size[1]/_picture_size[1];
+  _planeTransformMatrix =  Eigen::MatrixXd::Identity(4,4);
+  _planeTransformMatrix << transform_data[0], transform_data[1], transform_data[2],
+                            transform_data[3], transform_data[4], transform_data[5],
+                            transform_data[6], transform_data[7], transform_data[8];
+  _tool_size = Eigen::VectorXd::Zero(4);
+  _tool_size << tool_size[0],tool_size[1], tool_size[2],0;
 
-  Eigen::Quaterniond q(qdata[0], qdata[1], qdata[2], qdata[3]);
-  _planeRotMatrix = q.normalized().toRotationMatrix();
 
-  _planeTransVector = Eigen::Vector3d(tdata[0], tdata[1], tdata[2]);
+  spdlog::info("TrjPlaner::TrjPlaner");
 }
 
 bool TrjPlaner::getPathWithTime(Path & path, double velocity, PathTimeDist & out){
@@ -46,20 +54,23 @@ bool TrjPlaner::getPathWithTime(Path & path, double velocity, PathTimeDist & out
   return true;
 }
 
-bool TrjPlaner::freeMoving(Eigen::Vector3d p1, Eigen::Vector3d p2, double velocity,  PathTimeDist timefreeMovePath){
-  Eigen::Vector3d p1h=p1;
-  Eigen::Vector3d p2h=p2;
-  p1h[2]=_heigh;
-  p2h[2]=_heigh;
-  Path freeMovePath = {p1,p1h,p2h,p2};
-  return getPathWithTime(freeMovePath, velocity, timefreeMovePath);
-}
+//bool TrjPlaner::freeMoving(Eigen::VectorXd p1, Eigen::VectorXd p2, double velocity,  PathTimeDist timefreeMovePath){
+//  Eigen::VectorXd p1h=p1;
+//  Eigen::VectorXd p2h=p2;
+//  p1h[2]=_heigh;
+//  p2h[2]=_heigh;
+//  Path freeMovePath = {p1,p1h,p2h,p2};
+//  return getPathWithTime(freeMovePath, velocity, timefreeMovePath);
+//}
 
 void TrjPlaner::transformPointsAndScale(const Path & path, Path & out)
 {
-  Eigen::Matrix3d transform = _planeRotMatrix*_scaleFactor;
   out.resize(path.size());
-  for (size_t i = 0; i < path.size(); ++i) {
-    out[i] = transform*path[i] + _planeTransVector;
+  Path pc=path;
+  for (int64_t i = 0; i < path.size(); ++i) {
+      pc[i] = Eigen::VectorXd::Zero(4);
+      pc[i](0) = path[i](0)-_picture_size[0]/2;
+      pc[i](1) = path[i](1)-_picture_size[1]/2;
+    out[i] = (_planeTransformMatrix)*_scaleFactor*pc[i];
   }
 }

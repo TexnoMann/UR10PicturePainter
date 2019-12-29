@@ -7,3 +7,6 @@
 [submodule "src/util/fast-cpp-csv-parser"]
 	path = src/util/fast-cpp-csv-parser
 	url = https://github.com/ben-strasser/fast-cpp-csv-parser.git
+[submodule "src/util/kdl_parser"]
+	path = src/util/kdl_parser
+	url = git@github.com:TexnoMann/kdl_parser.git

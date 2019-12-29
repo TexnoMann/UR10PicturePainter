@@ -19,7 +19,7 @@ int main(int argc, char const* argv[]){
   }
 
   ContoursFinder cf;
-  LayerParser parser(5,50,255);
+  LayerParser parser(1,80,255);
 
   spdlog::info("[START] Test normal image");
   imshow( "Test image", image );
@@ -27,8 +27,9 @@ int main(int argc, char const* argv[]){
 
   Mat image_contours =Mat::zeros( image.size(), CV_8UC3 );
 
-  parser.parseLayers(image, 3, 2.5, 1, CV_16S);
+  parser.parseLayers(image, 1, 1, 2, CV_16S);
   ImageLayers il = parser.getLayers();
+  spdlog::info("[LAYER PARSER] Count layers: {}", il.size());
   cf.generateContours(il);
   cf.getImageFromContours(image_contours);
   spdlog::info("[CONTOUR FINDER] Image for contours");
