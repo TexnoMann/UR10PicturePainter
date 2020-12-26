@@ -19,6 +19,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 include_directories(util/fast-cpp-csv-parser)
 include_directories(util/CSVWriter/include)
 
+add_subdirectory(ur_rtde)
 add_subdirectory(src/picture_process)
 add_subdirectory(src/property_manager)
 add_subdirectory(src/trj_planer)
