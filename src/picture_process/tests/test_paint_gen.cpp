@@ -3,6 +3,8 @@
 #include <trj_planer/trj_planer.h>
 #include <property_manager/property_manager.h>
 
+#define CIM 1 // it's CV_LOAD_IMAGE_COLOR for opencv < 4.0 and IMREAD_COLOR > 4.0
+
 using namespace cv;
 using namespace std;
 
@@ -13,7 +15,7 @@ int main(int argc, char const* argv[]){
   }
 
   Mat image;
-  image = imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
+  image = imread(argv[1], CIM);   // Read the file
 
   if(! image.data ){
     cout <<  "Could not open or find the image" << std::endl;
