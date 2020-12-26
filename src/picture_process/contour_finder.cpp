@@ -34,7 +34,7 @@ void ContoursFinder::convertToPaths(LayersPaths &out_layers_paths){
       std::vector<Eigen::VectorXd> one_part;
       for(unsigned int j=0; j<contours[i].size(); j++){
         Eigen::VectorXd point = Eigen::VectorXd::Zero(4);
-        point<< contours[i][j].x, contours[i][j].y, 0, 1;
+        point<< contours[i][j].x, contours[i][j].y, 0.0, 1.0;
         one_part.emplace_back(point);
       }
       p.emplace_back(one_part);

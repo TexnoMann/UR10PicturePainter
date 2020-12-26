@@ -9,26 +9,26 @@ using namespace Eigen;
 int main(int argc, char const* argv[]){
 
   //Making test trajectory(circle)
-  int N=5000;
+  int N=3000;
   double timeDelay=0.002;
-  double maxVelocity=0.01;
+  double maxVelocity=0.1;
   double heigh=0.01;
 
   if (argc !=2){spdlog::error("Please given arguments: ./build/test_trj_planer config/robot.json"); return 0;}
   std::string config_filename=argv[1];
   prop::init(config_filename);
 
-  TrjPlaner planer(timeDelay, 0.05, 0.2, 0.01, 0);
+  TrjPlaner planer(timeDelay, 0.05, 0.2, 0.1, 0);
   spdlog::info("[INFO] create planer");
 
   Path p;
   ofstream file;
-  file.open("out.csv");
+  file.open("test_trj.csv");
 
   spdlog::info("[INFO] Open file");
   VectorXd point1 =VectorXd::Zero(4);
   for( int i = 0; i < N; i++){
-    point1<<0.2 *sin(i*timeDelay*1), 0.2*cos(i*timeDelay*1), 0, 1;
+    point1<<500+500 *sin(i*timeDelay*1), 500+500*cos(i*timeDelay*1), 0.0, 1.0;
     p.emplace_back(point1);
   }
 
@@ -48,7 +48,7 @@ int main(int argc, char const* argv[]){
 
   file<<"x y z t\n";
   for(int i = 0; i < out.size(); i++){
-    std::string row = to_string(out[i].first.first[0]) + "," + to_string(out[i].first.first[1]) + "," + to_string(out[i].first.first[2]) + "," + to_string(out[i].second);
+    std::string row = to_string(out[i].point(0)) + "," + to_string(out[i].point(1)) + "," + to_string(out[i].point(2)) + "," + to_string(out[i].ts);
     file<<row<<"\n";
   }
   file.close();

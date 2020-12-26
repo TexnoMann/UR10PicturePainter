@@ -10,3 +10,6 @@
 [submodule "src/util/kdl_parser"]
 	path = src/util/kdl_parser
 	url = git@github.com:TexnoMann/kdl_parser.git
+[submodule "ur_rtde"]
+	path = ur_rtde
+	url = https://gitlab.com/sdurobotics/ur_rtde.git

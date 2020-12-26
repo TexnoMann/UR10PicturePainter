@@ -8,7 +8,7 @@ using namespace std;
 
 int main(int argc, char const* argv[]){
   if( argc != 3){
-    cout <<" Usage: display_image ImageToLoadAndDisplay" << endl;
+    spdlog::error("Usage: ./build/test_paint_gen test_image config_file");
     return -1;
   }
 
@@ -21,7 +21,7 @@ int main(int argc, char const* argv[]){
   }
 
   ContoursFinder cf;
-  LayerParser parser(1,80,255);
+  LayerParser parser(1,20,255);
 
   spdlog::info("[START] Test normal image");
   imshow( "Test image", image );
@@ -41,7 +41,7 @@ int main(int argc, char const* argv[]){
   imshow( "Test image", image_contours );
   waitKey(0);
 
-  int64_t timeDelay=2000;
+  double timeDelay=0.002;
   double maxVelocity=0.1;
   double heigh=0.01;
 
@@ -50,10 +50,10 @@ int main(int argc, char const* argv[]){
   TrjPlaner planer(timeDelay, 0.1, 0.1, 0.02, 0);
   spdlog::info("[INFO] create planer");
   spdlog::info("[INFO] count curves {}", l[1].size());
-    Path p;
-    ofstream file;
-    file.open("trj/trj" + to_string(0) + ".csv");
   for( int i = 0; i < l[1].size(); i++){
+      Path p;
+      ofstream file;
+      file.open("trj/trj" + to_string(i) + ".csv");
 
       spdlog::info("[INFO] Open output file");
 
@@ -79,16 +79,15 @@ int main(int argc, char const* argv[]){
           return -1;
       }
 
-      std::string row = to_string(out[0].first.first[0]) + "," + to_string(out[0].first.first[0]-0.1) + "," + to_string(out[0].first.first[0]) + "," + to_string(0*timeDelay);
+      std::string row = to_string(out[0].point(0)) + "," + to_string(out[0].point(1)) + "," + to_string(out[0].point(2)) + "," + to_string(out[0].ts);
       file<<row<<"\n";
       for(int j = 1; j < out.size(); j++){
-          std::string row = to_string(out[j].first.first[0]) + "," + to_string(out[j].first.first[1]) + "," + to_string(out[j].first.first[2]) + "," + to_string(j*timeDelay);
+          std::string row = to_string(out[j].point(0)) + "," + to_string(out[j].point(1)) + "," + to_string(out[j].point(2)) + "," + to_string(out[j].ts);
           file<<row<<"\n";
       }
 
-
+      file.close();
   }
-    file.close();
 
 
   spdlog::info("exit");

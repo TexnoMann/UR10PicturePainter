@@ -23,7 +23,7 @@ void LayerParser::parseLayers(cv::Mat src_image, int ksize, double delta, double
     threshold(out_image, layer, intesive, 255, 3);
     _ft.gusianBlurFilt(out_image,3);
     try{
-      cv::subtract(out_image, layer, out_image);
+//      cv::subtract(out_image, layer, out_image);
       _layers.emplace_back(layer);
     }catch(std::exception ex){
       spdlog::error("[CONTRAST_F] Gived invalid image for subtract.");
