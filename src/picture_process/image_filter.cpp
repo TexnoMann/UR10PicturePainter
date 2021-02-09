@@ -50,3 +50,7 @@ void Filter::contrastFilt(cv::Mat & image, cv::Mat & out_image, int step){
 		throw;
 	}
 }
+
+void Filter::invColor(cv::Mat & bimage, cv::Mat & out_bimage){
+  bitwise_not(bimage, out_bimage);
+}

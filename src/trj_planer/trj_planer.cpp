@@ -77,10 +77,10 @@ void TrjPlaner::transformPointsAndScale(const Path & path, Path & out)
     for (int64_t i = 0; i < path.size(); ++i) {
         pc[i] = Eigen::VectorXd::Zero(4);
         pc[i](0) = path[i](0) - _picture_size[0]/2;
-        pc[i](1) = _picture_size[1]/2 - path[i](1);
+        pc[i](1) = path[i](1) - _picture_size[1]/2;
         pc[i](2) = path[i](2);
         pc[i](3) = path[i](3);
 //        out[i] = pc[i];
-        out[i] = _planeTransformMatrix * _scaleFactor * pc[i];
+        out[i] = _planeTransformMatrix * (_scaleFactor * pc[i]);
     }
 }

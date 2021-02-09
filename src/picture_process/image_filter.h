@@ -10,4 +10,5 @@ public:
   void convertToGray(cv::Mat & image, cv::Mat & grayImage);
   void gusianBlurFilt(cv::Mat &src_image, int window);
   void contrastFilt(cv::Mat & image, cv::Mat & out_image, int step);
+  void invColor(cv::Mat & bimage, cv::Mat & out_image);
 };
