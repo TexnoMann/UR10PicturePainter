@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 }
 
 bool take_up(RTDEControlInterface & rtde_control, RTDEReceiveInterface & rtde_receive, std::vector<double> & cart_pos){
-  cart_pos[2]+= 0.07;
+  cart_pos[2]+= 0.09;
   spdlog::info("[Target] Take Up: {0} {1} {2}", cart_pos[0], cart_pos[1], cart_pos[2]);
   rtde_control.moveL(cart_pos, velocity, acceleration);
   std::this_thread::sleep_for(std::chrono::milliseconds(300));
@@ -91,7 +91,7 @@ bool paint_trj(std::string csv_filename, RTDEControlInterface & rtde_control, RT
       {
         std::this_thread::sleep_for(std::chrono::duration<double>(dt - t_duration.count()));
       }
-    }
+  }
   std::this_thread::sleep_for(std::chrono::milliseconds(1000));
   rtde_control.servoStop();
   return true;
